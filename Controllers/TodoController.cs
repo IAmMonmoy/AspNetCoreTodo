@@ -40,7 +40,10 @@ namespace AspNetCoreTodo.Controllers
                 return BadRequest(ModelState);
             }
 
-            var sucessfull = await _todoItemService.AddItemAsync(newItem);
+            var currentUser = await _userManager.GetUserAsync(User);
+            if(currentUser == null) return Unauthorized();
+
+            var sucessfull = await _todoItemService.AddItemAsync(newItem,currentUser);
 
             if(!sucessfull)
             {
@@ -54,7 +57,10 @@ namespace AspNetCoreTodo.Controllers
         {
             if(id == Guid.Empty) return BadRequest();
 
-            var sucessfull = await _todoItemService.MarkDoneAsync(id);
+            var currentUser = await _userManager.GetUserAsync(User);
+            if(currentUser == null) return Unauthorized();
+
+            var sucessfull = await _todoItemService.MarkDoneAsync(id,currentUser);
 
             if(!sucessfull) return BadRequest();
 
