@@ -32,5 +32,6 @@ function markCompleted(checkbox)
     $.post('/Todo/MarkDone', { id : checkbox.name }, function(){
         var row = checkbox.parentElement.parentElement;
         $(row).addClass('done');
+        window.location = '/Todo';
     });
 }
