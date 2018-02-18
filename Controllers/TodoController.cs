@@ -25,7 +25,7 @@ namespace AspNetCoreTodo.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if(currentUser == null) return Challenge();
             
-            var todoItems = await _todoItemService.GetIncompleteItemsAsync();
+            var todoItems = await _todoItemService.GetIncompleteItemsAsync(currentUser);
             var model = new TodoViewModel()
             {
                 Items = todoItems
